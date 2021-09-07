@@ -2,7 +2,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, Button } from 'react-native';
 
 export default function Detail(props) {
 
@@ -32,7 +32,8 @@ Detail.navigationOptions = screenProps => ({
     headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 24
-    }
+    },
+    headerRight: () => <Button title="Edit" color="#282C35" onPress={() => screenProps.navigation.navigate("Edit", {movie: screenProps.navigation.getParam('movie')})} />
 })
 
 const styles = StyleSheet.create({
