@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function MovieList() {
+export default function MovieList(props) {
 
-    const [movies, setMovies] = useState([{title: 'Rambo'}, {title: 'Predator'}])
+    const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/movies/', {
+        fetch('http://192.168.0.6:8000/api/movies/', {
             method: 'GET',
             headers: {
                 'Authorization':'Token 56c7b44f49cd42aa14d9e21a50072deb098b55f2'
@@ -15,15 +16,26 @@ export default function MovieList() {
         }).then(res => res.json())
         .then(jsonRes => setMovies(jsonRes))
         .catch(error => console.log(error))
-    })
+    }, [])
+
+    const movieClicked = (movie) => {
+        props.navigation.navigate("Detail", {movie: movie, title: movie.title})
+    }
 
     return (
-        <View style={styles.container}>
+        <View>
+            <Image source={require('../assets/MR_logo.png')}
+                style={{width: '100%', height: 135, paddingTop: 30}} resizeMode="contain"/>
             <FlatList
                 data = {movies}
                 renderItem = {({item}) => (
-                    <Text>{item.title}</Text>
-                )} 
+                    <TouchableOpacity onPress={() => movieClicked(item)}>
+                        <View style={styles.item}>
+                            <Text style={styles.itemText}>{item.title}</Text>
+                        </View>
+                    </TouchableOpacity>
+                )}
+                keyExtractor={(item, index) => index.toString()}
             />
         </View>
     );
@@ -36,4 +48,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  item: {
+      flex: 1,
+      padding: 10,
+      height: 50,
+      backgroundColor: '#282C35'
+  },
+  itemText: {
+      color: '#fff',
+      fontSize: 24
+  }
 });
