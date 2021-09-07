@@ -31,8 +31,8 @@ export default function Detail(props) {
         <View style={styles.container}>
             <View style={styles.starContainer}>
                 <FontAwesomeIcon style={movie.avg_rating > 0 ? styles.orange : styles.white} icon={faStar}/>
-                <FontAwesomeIcon style={movie.avg_rating > 2 ? styles.orange : styles.white} icon={faStar}/>
                 <FontAwesomeIcon style={movie.avg_rating > 1 ? styles.orange : styles.white} icon={faStar}/>
+                <FontAwesomeIcon style={movie.avg_rating > 2 ? styles.orange : styles.white} icon={faStar}/>
                 <FontAwesomeIcon style={movie.avg_rating > 3 ? styles.orange : styles.white} icon={faStar}/>
                 <FontAwesomeIcon style={movie.avg_rating > 4 ? styles.orange : styles.white} icon={faStar}/>
                 <Text style={styles.white}>({movie.no_of_ratings})</Text>

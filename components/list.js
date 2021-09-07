@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MovieList(props) {
@@ -40,6 +40,19 @@ export default function MovieList(props) {
         </View>
     );
 }
+
+MovieList.navigationOptions = screenProps => ({
+    title: "Home",
+    headerStyle: {
+        backgroundColor: 'orange'
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+        fontSize: 24
+    },
+    headerRight: () => <Button title="Add new" color="orange" onPress={() => screenProps.navigation.navigate("Edit", {movie: {title: '', description: ''}})} />
+})
 
 const styles = StyleSheet.create({
   container: {
